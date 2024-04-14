@@ -1,15 +1,40 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+package dev.lpa;
+
+import java.math.BigDecimal;
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        double policyAmount = 100_000_000;
+        int beneficiaries = 3;
+        float percentageFloat = 1.0f / beneficiaries;
+        double percentage = 1.0 / beneficiaries;
+
+        System.out.printf("Payout = %,.2f%n", policyAmount * percentageFloat);
+        System.out.printf("Payout = %,.2f%n", policyAmount * percentage);
+
+        double totalUsingFloat = policyAmount -
+                ((policyAmount * percentageFloat) * beneficiaries);
+        System.out.printf("totalUsingFloat: %,.2f%n", totalUsingFloat);
+
+        double total = policyAmount -
+                ((policyAmount * percentage) * beneficiaries);
+        System.out.printf("total: %,.2f%n", total);
+
+
+        String[] tests = {"15.456", "8", "10000.000001", ".123"};
+        BigDecimal[] bds = new BigDecimal[tests.length];
+        Arrays.setAll(bds, i-> new BigDecimal(tests[i]));
+
+        System.out.printf("%-14s %-15s %-8s %s%n", "Value" , "Unscaled Value", "Scale", "Precision");
+
+        for (var bd : bds){
+            System.out.printf("%-15s %-15d %-9d %d %n",
+                    bd, bd.unscaledValue(), bd.scale(), bd.precision());
         }
-    }
+
+
+        }
+
 }
